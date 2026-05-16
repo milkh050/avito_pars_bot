@@ -5,11 +5,11 @@ from hydrogram import Client, filters
 from playwright.async_api import async_playwright
 from bs4 import BeautifulSoup
 
-# --- НАСТРОЙКИ (Заполни своими данными) ---
+# --- НАСТРОЙКИ ---
 API_ID = 38292308  # С сайта my.telegram.org
 API_HASH = "eaad4e2fd6a9d20748631f8ab1e5a352"  # С сайта my.telegram.org
-BOT_TOKEN = "8732781082:AAGJ_8GrIqgF0lJksD88qqF0ZcwajNFU74g"  # От @BotFather
-MAX_PRICE = 23000  # Фильтр цены: ищем только до 23к рублей
+BOT_TOKEN = ""  # От @BotFather
+
 
 app = Client("universal_avito_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
@@ -58,7 +58,7 @@ def check_new_ad(ad_id):
 async def get_avito_data(query, max_price):
     results = []
     async with async_playwright() as p:
-        user_data = r"C:\Users\milk\Desktop\bot_profile"
+        user_data = r"C:\Users\user\Desktop\bot_profile"
         browser_context = await p.chromium.launch_persistent_context(
             user_data,
             headless=False,  # Видим окно, чтобы если что помочь боту с капчей
@@ -74,7 +74,7 @@ async def get_avito_data(query, max_price):
         except ImportError:
             pass
 
-        # Формируем ссылку поиска для Челябинска
+        # Формируем ссылку
         url = f"https://avito.ru/?q={query.replace(' ', '+')}"
 
         try:
@@ -117,7 +117,7 @@ async def get_avito_data(query, max_price):
 
                     # Железобетонное извлечение ID из ссылки (вычищаем только цифры)
                     digits_only = re.sub(r'\D', '', href)
-                    # --- ЖЕСТКИЙ СИСТЕМНЫЙ ID (ОБХОД ДЕМЕНЦИИ) ---
+                    # --- ЖЕСТКИЙ СИСТЕМНЫЙ ID ---
                     # Забираем внутренний ID Авито прямо из атрибутов блока товара
                     ad_id = await item.get_attribute("data-id")
 
