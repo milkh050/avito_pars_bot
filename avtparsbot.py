@@ -6,8 +6,8 @@ from playwright.async_api import async_playwright
 from bs4 import BeautifulSoup
 
 # --- НАСТРОЙКИ ---
-API_ID = 38292308  # С сайта my.telegram.org
-API_HASH = "eaad4e2fd6a9d20748631f8ab1e5a352"  # С сайта my.telegram.org
+API_ID =   # С сайта my.telegram.org
+API_HASH = ""  # С сайта my.telegram.org
 BOT_TOKEN = ""  # От @BotFather
 
 
